@@ -1,0 +1,21 @@
+{
+  "name": "02.http-status-cats",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "test": "tests"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^5.1.0",
+    "chromium": "^3.0.3",
+    "mocha": "^10.3.0",
+    "playwright": "^1.42.0"
+  }
+}
