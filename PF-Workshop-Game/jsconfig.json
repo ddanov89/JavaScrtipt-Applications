@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "target": "ES2021",
+    "module": "ES6",
+    "lib": ["DOM", "DOM.Iterable", "es2021"]
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
