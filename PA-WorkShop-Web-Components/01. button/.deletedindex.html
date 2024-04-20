@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component Web</title>
+    <style>
+        h2 {
+            color: red;
+        }
+    </style>
+    <script src="./toggle.js" type="module"></script>
+</head>
+
+<body>
+
+    <template id="my-template">
+        <style>
+            article {
+                margin: 32px;
+                box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.2);
+            }
+
+            article h2 {
+                margin: 0;
+                padding: 16px;
+                background-color: #ccc;
+            }
+
+            article p {
+                padding: 16px;
+                margin: 0;
+            }
+        </style>
+        <article>
+            <h2>
+                <slot name="title">Title</slot>
+            </h2>
+            <p>
+                <slot>content</slot>
+            </p>
+        </article>
+    </template>
+    <!-- <template id="toggle-article">
+        <article>
+            <h2><slot name="title">Title</slot></h2>
+            <button id="btn">Show More</button>
+            <p style="display: none;">
+                <slot></slot>
+            </p>
+        </article>
+    </template> -->
+    <button id="btn">Create</button>
+
+    <main>
+    <my-element title="Hello">
+        Hi
+    </my-element>
+    <toggle-article title="Toggle"><span slot="title">Toggleable Article</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, modi assumenda
+        perferendis repellat culpa quam facilis voluptatum aperiam? Harum odit perferendis alias cum officia enim fugit
+        iure voluptas ab tempora.</toggle-article>
+    </main>
+
+    <script>
+        const temp = document.getElementById('my-template');
+        const main = document.querySelector('main');
+        document.getElementById('btn').addEventListener('click', () => {
+            main.appendChild(document.createElement('my-element'));
+        });
+        // const main = document.querySelector('main');
+        // main.appendChild(temp.content.cloneNode(true));
+        // main.appendChild(temp.content.cloneNode(true));
+
+        // main.appendChild(temp.content.cloneNode(true));
+
+        // console.log(temp.content);
+
+        class MyElement extends HTMLElement {
+            #root
+            constructor() {
+                console.log('created');
+                super();
+
+                this.#root = this.attachShadow({ mode: 'closed' });
+            }
+            connectedCallback() {
+                console.log("attached to DOM");
+                this.#root.appendChild(temp.content.cloneNode(true));
+            }
+            disconnectedCallback() {
+                console.log('removed from DOM');
+            }
+            static get observedAttributes() {
+                return ['title'];
+            }
+            attributeChangedCallback(name, old, value) {
+                console.log(name, old, value);
+            }
+        }
+
+        window.customElements.define('my-element', MyElement);
+    </script>
+
+</body>
+
+</html>
